@@ -1,8 +1,9 @@
 // All api calls will be made here
 import axios from 'axios'
 
-export const fetchProductList = async () => {
-    const { data } = await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/product`);
+//pageParam => sayfa parametresi. Ürünlerin sayfa sayfa gösterilmesini sağlıyoruz.
+export const fetchProductList = async ({ pageParam = 1 }) => {
+    const { data } = await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/product?page=${pageParam}`);
 
     return data;
 }
