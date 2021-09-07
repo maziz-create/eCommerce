@@ -11,11 +11,11 @@ function Card({ item }) {
         let slicedDate = splitedDate.slice(0, 10); //0dan başlayıp 9. karaktere kadar göster dedik
         let joinedDate = slicedDate.join(""); //harf harf array olan diziyi string yaptık
     */
- 
+
     return (
         <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p="3">
 
-            <Link to="#/">
+            <Link to={`/product/${item._id}`}>
                 {/* loading="lazy" => resim yüklenirken minik resim çıkmasın, alt propu aktif olmasın. */}
                 <Image src={item.photos[0]} width="250px" alt="product" loading="lazy" />
 
