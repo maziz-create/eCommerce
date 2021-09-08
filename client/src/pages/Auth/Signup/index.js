@@ -1,10 +1,18 @@
 import React from 'react'
+
 import { Flex, Box, Heading, FormControl, FormLabel, Input, Button, Alert } from '@chakra-ui/react'
+
 import { useFormik } from 'formik'
 import validationSchema from './validations'
+
 import { fetchRegister } from '../../../api'
 
+// auth context
+import { useAuth } from '../../../contexts/AuthContext'
+
 function Signup() {
+    const { login } = useAuth();
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -22,6 +30,8 @@ function Signup() {
                     email: values.email,
                     password: values.password,
                 })
+
+                login(registerResponse) //içindeki user'ı AuthContextteki user state'ine yazdırdık.
                 console.log(registerResponse);
             } catch (e) {
                 bag.setErrors({ general: e.response.data.message })
