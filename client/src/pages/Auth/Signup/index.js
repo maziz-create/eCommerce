@@ -1,7 +1,8 @@
 import React from 'react'
-import { Flex, Box, Heading, FormControl, FormLabel, Input, Button } from '@chakra-ui/react'
+import { Flex, Box, Heading, FormControl, FormLabel, Input, Button, Alert } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import validationSchema from './validations'
+import { fetchRegister } from '../../../api'
 
 function Signup() {
     const formik = useFormik({
@@ -13,7 +14,18 @@ function Signup() {
         validationSchema, //yup ile ürettiğimiz validation
         // values: formdaki datalar ,, bag: form üzerinde yapılabilen birtakım işlemler(form reset gibi)
         onSubmit: async (values, bag) => {
-            console.log(values);
+            // fetchRegister(values);
+            // bag.resetForm();
+            try {
+                const registerResponse = await fetchRegister({
+                    //backend'e passwordConfirm alanını göndermek istemiyoruz...
+                    email: values.email,
+                    password: values.password,
+                })
+                console.log(registerResponse);
+            } catch (e) {
+                bag.setErrors({ general: e.response.data.message })
+            }
         },
     })
     return (
@@ -22,6 +34,13 @@ function Signup() {
                 <Box pt={10}>
                     <Box textAlign="center">
                         <Heading>Sign Up</Heading>
+                    </Box>
+                    <Box my={5}>
+                        {
+                            formik.errors.general && (
+                                <Alert status="error">{formik.errors.general}</Alert>
+                            )
+                        }
                     </Box>
                     <Box my={5} textAlign="left">
                         {/* altta başta formik.onSubmit kullandık, e.preventDefault için handleSubmite çevirdik. */}
@@ -34,6 +53,7 @@ function Signup() {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.email}
+                                    isInvalid={formik.touched.email && formik.errors.email}
                                 />
                             </FormControl>
 
@@ -45,6 +65,7 @@ function Signup() {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.password}
+                                    isInvalid={formik.touched.password && formik.errors.password}
                                 />
                             </FormControl>
 
@@ -56,6 +77,7 @@ function Signup() {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.passwordConfirm}
+                                    isInvalid={formik.touched.passwordConfirm && formik.errors.passwordConfirm}
                                 />
                             </FormControl>
 
