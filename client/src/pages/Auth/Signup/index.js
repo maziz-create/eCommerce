@@ -93,7 +93,7 @@ function Signup({ history }) {
                             </FormControl>
 
                             <Button mt="4" width="full" type="submit">
-                                Sign Up
+                                Signup
                             </Button>
                         </form>
                     </Box>
