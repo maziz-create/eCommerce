@@ -10,7 +10,7 @@ import { fetchRegister } from '../../../api'
 // auth context
 import { useAuth } from '../../../contexts/AuthContext'
 
-function Signup() {
+function Signup({ history }) {
     const { login } = useAuth();
 
     const formik = useFormik({
@@ -32,7 +32,8 @@ function Signup() {
                 })
 
                 login(registerResponse) //içindeki user'ı AuthContextteki user state'ine yazdırdık.
-                console.log(registerResponse);
+                history.push("/profile") //kayıt olan kişiyi profil ekranına atıyor.
+                console.log("kayıt olan kişi =>", registerResponse);
             } catch (e) {
                 bag.setErrors({ general: e.response.data.message })
             }
