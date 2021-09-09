@@ -2,8 +2,16 @@ import { useState, useEffect, createContext, useContext } from 'react'
 
 const BasketContext = createContext();
 
+//localStorage'ye stringify şekilde gideceği için parse etmemiz gerekir.
+const defaultBasket = JSON.parse(localStorage.getItem('basket')) || []; //sayfa yenilendiğinde sepet uçmasın istiyoruz...
+//ha eğer localStoragede yoksa boş bir array olarak alsın. || işareti buna yarıyor.
+
 const BasketProvider = ({ children }) => {
     const [items, setItems] = useState([]); //sepetteki ürünleri tutan state
+
+    useEffect(() => {
+        setItems(defaultBasket);
+    }, [])
 
     const addToBasket = (data, findBasketItem) => { //sepete ürün ekleyecek fonksiyonu üretip context value'suna ekledik.
         if (!findBasketItem) {  //ilgili ürün eğer sepette değilse sepete ekle.
