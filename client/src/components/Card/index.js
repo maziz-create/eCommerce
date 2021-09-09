@@ -2,10 +2,14 @@ import { Box, Image, Button } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { useBasket } from '../../contexts/BasketContext'
-import { useState } from 'react'
+import { useEffect } from 'react'
 
 function Card({ item }) {
     const { addToBasket, items } = useBasket(); //items'i alma sebebimiz butona tıkladığımızda tekrar tekrar sepete eklemesi.
+
+    useEffect(() => {
+        localStorage.setItem('basket', JSON.stringify(items));
+    }, [items])
 
     const findBasketItem = items.find((basket_item) => basket_item._id === item._id); //ilgili ürün zaten sepetteyse...
 
