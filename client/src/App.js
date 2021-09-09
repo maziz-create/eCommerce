@@ -4,6 +4,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import ProtectedRoute from './pages/ProtectedRoute'
 import Navbar from './components/Navbar';
 import Signin from './pages/Auth/Signin';
 import Signup from './pages/Auth/Signup';
@@ -22,7 +23,9 @@ function App() {
             <Route path="/product/:product_id" component={ProductDetail} />
             <Route path="/signin" component={Signin} />
             <Route path="/signup" component={Signup} />
-            <Route path="/profile" component={Profile} />
+
+            {/* profil sayfasına yetkisi olmayan kullanıcının girememesini istiyoruz. */}
+            <ProtectedRoute path="/profile" component={Profile} />
           </Switch>
         </div>
       </div>
