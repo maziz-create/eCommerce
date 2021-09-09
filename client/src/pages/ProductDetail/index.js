@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 import { fetchProductDetail } from '../../api'
 import { Box, Text, Button } from '@chakra-ui/react'
 import moment from 'moment'
@@ -9,6 +10,11 @@ import { useBasket } from '../../contexts/BasketContext'
 function ProductDetail() {
     const { product_id } = useParams();
     const { addToBasket, items } = useBasket(); //items'i alma sebebimiz butona tıkladığımızda tekrar tekrar sepete eklemesi.
+
+    useEffect(() => {//eklenen yeni ürünü localStorageye'de yaz.
+        localStorage.setItem('basket', JSON.stringify(items));
+    }, [items])
+
     const { isLoading, error, data } = useQuery(['product', product_id], () => fetchProductDetail(product_id)
     )
     if (isLoading) return <div>Loading...</div>
@@ -16,7 +22,7 @@ function ProductDetail() {
     if (error) return <div>An error has occured {error.message}</div>
 
     const findBasketItem = items.find((item) => item._id === product_id); //ilgili ürün zaten sepetteyse...
-    const images = data.photos.map((url) => ({ original: url }))
+    const images = data.photos.map((url) => ({ original: url }));
 
     return (
         <div style={{ textAlign: "center" }}>
