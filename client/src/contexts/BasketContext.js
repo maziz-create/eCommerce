@@ -19,10 +19,16 @@ const BasketProvider = ({ children }) => {
         setItems(filtered)
     }
 
+    const removeFromBasket = (item_id) => {
+        const filtered = items.filter((item) => item._id !== item_id);//istenmeyen ürün haricini yeni listeye at.
+        setItems(filtered); //kalan ürünleri tekrardan sepete at.
+    }
+
     const values = {
         items,
         setItems,
-        addToBasket
+        addToBasket,
+        removeFromBasket,
     }
 
     return <BasketContext.Provider value={values} >{children}</BasketContext.Provider>
