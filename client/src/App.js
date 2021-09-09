@@ -11,6 +11,7 @@ import Signup from './pages/Auth/Signup';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Profile from './pages/Profile';
+import Basket from './pages/Basket';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/product/:product_id" component={ProductDetail} />
             <Route path="/signin" component={Signin} />
             <Route path="/signup" component={Signup} />
+            <Route path="/basket" component={Basket} />
 
             {/* profil sayfasına yetkisi olmayan kullanıcının girememesini istiyoruz. */}
             <ProtectedRoute path="/profile" component={Profile} />
