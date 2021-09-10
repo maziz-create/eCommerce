@@ -13,6 +13,7 @@ import ProductDetail from './pages/ProductDetail';
 import Profile from './pages/Profile';
 import Basket from './pages/Basket';
 import Error404 from './pages/Error404';
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
 
             {/* profil sayfasına yetkisi olmayan kullanıcının girememesini istiyoruz. */}
             <ProtectedRoute path="/profile" component={Profile} />
+
+            {/* admin sayfasına yetkisi olmayan kullanıcıların girememesini istiyoruz. */}
+            <ProtectedRoute path="/admin" component={Admin} admin={true} />
 
             {/* Hiçbir path ile eşleşmezse: */}
             <Route path="*" component={Error404} />
