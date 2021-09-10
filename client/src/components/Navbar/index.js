@@ -7,7 +7,8 @@ import { useAuth } from '../../contexts/AuthContext'
 import { useBasket } from '../../contexts/BasketContext'
 
 function Navbar() {
-    const { loggedIn } = useAuth();
+    //user state'ini sonradan aldık. amacımız admin olan kişi için navbarda admin butonu göstermek.
+    const { loggedIn, user } = useAuth();
 
     const { items } = useBasket(); //sepette o an var olan ürünleri alıyoruz.
 
@@ -51,6 +52,13 @@ function Navbar() {
                                     </Link>
                                 )
                             }
+
+                            {
+                                user?.role === "admin" && <Link to="/admin">
+                                    <Button mr="2"  colorScheme="pink" variant="ghost">Admin</Button>
+                                </Link>
+                            }
+
                             <Link to="/profile">
                                 <Button style={{ marginRight: 5 }} >Profile</Button>
                             </Link>
