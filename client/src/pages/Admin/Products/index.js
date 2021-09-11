@@ -5,7 +5,7 @@ import { fetchProductList, deleteProduct } from '../../../api'
 
 // import moment from "moment"; //date düzeni için yapacaktık..
 
-import { Text } from '@chakra-ui/react'
+import { Text, Button, Flex } from '@chakra-ui/react'
 import { Table, Popconfirm } from 'antd'
 
 function Products() {
@@ -87,7 +87,13 @@ function Products() {
 
     return (
         <div>
-            <Text fontSize="2xl" p="5">Products</Text>
+            <Flex justifyContent="space-between" alignItems="center">
+                <Text fontSize="2xl" p="5">Products</Text>
+
+                <Link to="products/new">
+                    <Button colorScheme="blue">New</Button>
+                </Link>
+            </Flex>
 
             {/* rowKey => klasik key mevzusu. item._id neredeyse onu getirip koyuyor. */}
             <Table dataSource={data} columns={columns} rowKey="_id" />
